@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"net/http"
 	"pos/internal/auth/handler_auth"
 	"pos/internal/auth/repository_auth"
 	"pos/internal/auth/service_auth"
@@ -20,31 +21,36 @@ func main() {
 	if err != nil {
 		fmt.Println("Error loading .env file")
 	}
-	database.ConnectDatabase()
 
 	r := gin.Default()
+
+	r.Use(middleware.CORSMiddleware())
 
 	db := database.ConnectDatabase()
 	authRepo := repository_auth.NewAuthRepo(db)
 	authService := service_auth.NewAuthService(authRepo)
 	AuthHandler := handler_auth.NewAuthHandler(authService)
 
-	middleware := middleware.WithAuth()
-
-	auth := r.Group("/auth")
+	auth := r.Group("auth")
 	{
 		auth.POST("/login", AuthHandler.Login)
 
 	}
 
-	authorized := r.Group("/")
-	// per group middleware! in this case we use the custom created
-	// AuthRequired() middleware just in the "authorized" group.
+	r.GET("/test", func(c *gin.Context) {
+		c.JSON(http.StatusOK, gin.H{
+			"status": "posted",
+		})
+	})
+
+	menuRepo := repository_menu.NewMenuRepo(db)
+	menuService := service_menu.NewMenuService(menuRepo)
+	menuHandler := handler_menu.NewMenuHandler(menuService)
+
+	middleware := middleware.WithAuth()
+	authorized := r.Group("")
 	authorized.Use(middleware)
 	{
-		menuRepo := repository_menu.NewMenuRepo(db)
-		menuService := service_menu.NewMenuService(menuRepo)
-		menuHandler := handler_menu.NewMenuHandler(menuService)
 		authorized.GET("/menu", menuHandler.GetMenu)
 	}
 
