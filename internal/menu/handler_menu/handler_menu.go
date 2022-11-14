@@ -7,7 +7,7 @@ import (
 )
 
 type MenuService interface {
-	GetMenuService(role int) ([]domain.Result, error)
+	GetMenuService(role int) ([]domain.ResultMenu, error)
 }
 
 type MenuHandler struct {
@@ -24,15 +24,13 @@ func (mh MenuHandler) GetMenu(ctx *gin.Context) {
 
 	data, err := mh.menuService.GetMenuService(roleID)
 	if err != nil {
-		ctx.JSON(200, gin.H{
-			"code":    200,
+		ctx.JSON(500, gin.H{
 			"message": err.Error(),
 		})
 		return
 	}
 
 	ctx.JSON(200, gin.H{
-		"code": 200,
 		"data": data,
 	})
 	return

@@ -9,7 +9,7 @@ type Submenu struct {
 	Name string
 }
 
-type Result struct {
+type ResultMenu struct {
 	ID      int
 	Name    string
 	Submenu []Submenu

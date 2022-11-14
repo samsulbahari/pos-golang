@@ -15,7 +15,6 @@ func WithAuth() gin.HandlerFunc {
 		authHeader := ctx.GetHeader("Authorization")
 		if authHeader == "" {
 			ctx.JSON(401, gin.H{
-				"code":    "401",
 				"message": "unauthorized",
 			})
 
@@ -26,7 +25,7 @@ func WithAuth() gin.HandlerFunc {
 		//untuk cek apakah header = bearer
 		if !strings.HasPrefix(authHeader, bearer) {
 			ctx.JSON(401, gin.H{
-				"code":    "401",
+
 				"message": "unauthorized",
 			})
 
@@ -37,7 +36,6 @@ func WithAuth() gin.HandlerFunc {
 		data, err := libraries.DecryptJwt(token[1])
 		if err != nil {
 			ctx.JSON(401, gin.H{
-				"code":    "401",
 				"message": "Invalid token",
 			})
 

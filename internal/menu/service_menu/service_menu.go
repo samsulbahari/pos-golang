@@ -18,17 +18,17 @@ func NewMenuService(Mr MenuRepo) *MenuService {
 	return &MenuService{Mr}
 }
 
-func (ms MenuService) GetMenuService(role int) ([]domain.Result, error) {
+func (ms MenuService) GetMenuService(role int) ([]domain.ResultMenu, error) {
 	data, err := ms.MenuRepository.Getdata(role)
 	if err != nil {
 		return nil, errors.New("failed get data")
 	}
 
-	result := make([]domain.Result, 0)
+	result := make([]domain.ResultMenu, 0)
 
 	for _, getdata := range data {
 		submenu, _ := ms.MenuRepository.GetSubmenu(getdata.ID)
-		result = append(result, domain.Result{
+		result = append(result, domain.ResultMenu{
 			ID:      getdata.ID,
 			Name:    getdata.Name,
 			Submenu: submenu,

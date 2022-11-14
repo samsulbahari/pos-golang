@@ -2,10 +2,12 @@ package main
 
 import (
 	"fmt"
-	"net/http"
 	"pos/internal/auth/handler_auth"
 	"pos/internal/auth/repository_auth"
 	"pos/internal/auth/service_auth"
+	"pos/internal/category/handler_category"
+	"pos/internal/category/repository_category"
+	"pos/internal/category/service_category"
 	"pos/internal/database"
 	"pos/internal/menu/handler_menu"
 	"pos/internal/menu/repository_menu"
@@ -37,21 +39,20 @@ func main() {
 
 	}
 
-	r.GET("/test", func(c *gin.Context) {
-		c.JSON(http.StatusOK, gin.H{
-			"status": "posted",
-		})
-	})
-
 	menuRepo := repository_menu.NewMenuRepo(db)
 	menuService := service_menu.NewMenuService(menuRepo)
 	menuHandler := handler_menu.NewMenuHandler(menuService)
+
+	categoryRepo := repository_category.NewCategoryRepo(db)
+	categoryService := service_category.NewCategoryService(categoryRepo)
+	categoryHandler := handler_category.NewCategoryHandler(categoryService)
 
 	middleware := middleware.WithAuth()
 	authorized := r.Group("")
 	authorized.Use(middleware)
 	{
 		authorized.GET("/menu", menuHandler.GetMenu)
+		authorized.GET("/category", categoryHandler.GetCategory)
 	}
 
 	r.Run()
