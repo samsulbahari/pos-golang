@@ -4,9 +4,9 @@ import "time"
 
 type MCategory struct {
 	ID        int
-	Name      string
+	Name      string `json:"name" form:"name" binding:"required"`
 	Image     string
-	Status    bool
+	Status    bool `form:"status" binding:"required"`
 	CreatedAt time.Time
 	UpdatedAt time.Time
 }

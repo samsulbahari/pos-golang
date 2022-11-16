@@ -3,12 +3,17 @@ package service_category
 import (
 	"errors"
 	"math"
+	"mime/multipart"
 	"pos/internal/domain"
+	"pos/internal/libraries"
+
+	"github.com/gin-gonic/gin"
 )
 
 type CategoryRepository interface {
 	GetData(offset int) ([]domain.MCategory, error)
 	TotalData() (int64, error)
+	Create(category domain.MCategory) error
 }
 
 type CategoryService struct {
@@ -45,4 +50,20 @@ func (cs CategoryService) GetDataService(page int) (domain.ResultCategory, error
 	Result.LastPage = last_page
 
 	return Result, nil
+}
+
+func (cs CategoryService) CreateCategoryService(file *multipart.FileHeader, ctx *gin.Context, category domain.MCategory, extension string) error {
+
+	rand_string := libraries.RandomString()
+	file_path := "assets/category/" + rand_string + "." + extension
+
+	category.Image = ctx.Request.Host + "/" + file_path
+
+	err := cs.CategoriRepo.Create(category)
+	if err != nil {
+		return errors.New("Failed get data")
+	}
+
+	ctx.SaveUploadedFile(file, file_path)
+	return nil
 }

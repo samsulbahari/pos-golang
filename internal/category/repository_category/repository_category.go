@@ -28,3 +28,8 @@ func (cr CategoryRepo) TotalData() (int64, error) {
 
 	return count, err
 }
+
+func (cr CategoryRepo) Create(category domain.MCategory) error {
+	err := cr.db.Create(&category).Error
+	return err
+}

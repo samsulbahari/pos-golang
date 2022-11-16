@@ -25,7 +25,9 @@ func main() {
 	}
 
 	r := gin.Default()
+	r.MaxMultipartMemory = 8 << 20 // 8 MiB
 
+	r.Static("/assets", "./assets")
 	r.Use(middleware.CORSMiddleware())
 
 	db := database.ConnectDatabase()
@@ -53,6 +55,7 @@ func main() {
 	{
 		authorized.GET("/menu", menuHandler.GetMenu)
 		authorized.GET("/category", categoryHandler.GetCategory)
+		authorized.POST("/category", categoryHandler.CreateCategory)
 	}
 
 	r.Run()
