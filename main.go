@@ -16,6 +16,11 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
+
+	"time"
+
+	"github.com/gin-contrib/cache"
+	"github.com/gin-contrib/cache/persistence"
 )
 
 func main() {
@@ -25,6 +30,7 @@ func main() {
 	}
 
 	r := gin.Default()
+
 	r.MaxMultipartMemory = 8 << 20 // 8 MiB
 
 	r.Static("/assets", "./assets")
@@ -51,11 +57,18 @@ func main() {
 
 	middleware := middleware.WithAuth()
 	authorized := r.Group("")
+
+	store := persistence.NewInMemoryStore(time.Second)
+
 	authorized.Use(middleware)
 	{
-		authorized.GET("/menu", menuHandler.GetMenu)
+		authorized.GET("/menu", cache.CachePage(store, time.Minute, menuHandler.GetMenu))
 		authorized.GET("/category", categoryHandler.GetCategory)
 		authorized.POST("/category", categoryHandler.CreateCategory)
+		authorized.DELETE("/category", categoryHandler.DeleteCategory)
+		authorized.PUT("/category", categoryHandler.UpdateCategory)
+		authorized.PATCH("/category", categoryHandler.UpdateCategory)
+
 	}
 
 	r.Run()
