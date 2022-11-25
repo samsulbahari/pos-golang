@@ -26,4 +26,4 @@ WORKDIR /app
 COPY --from=build /app/pos /app/pos
 
 
-ENTRYPOINT ["/app/pos"]
+ENTRYPOINT /app/pos

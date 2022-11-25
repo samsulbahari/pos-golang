@@ -2,6 +2,8 @@ package main
 
 import (
 	"fmt"
+	"log"
+	"os"
 	"pos/internal/auth/handler_auth"
 	"pos/internal/auth/repository_auth"
 	"pos/internal/auth/service_auth"
@@ -24,6 +26,13 @@ import (
 )
 
 func main() {
+
+	if err := os.MkdirAll("assets/category", os.ModePerm); err != nil {
+		fmt.Println("Folder already exits")
+	}
+
+	os.Mkdir("assets", 0700)
+
 	err := godotenv.Load()
 	if err != nil {
 		fmt.Println("Error loading .env file")
