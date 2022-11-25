@@ -1,7 +1,10 @@
-command make image
+Panduan install
+- backup database pos.tar
+- ubah .env sesuai creadential database
+- untuk run aplikasi menggunakan command "go run main.go"
 
- - docker build -t pos -f Dockerfile.multistage .
+- untuk credential login
+    - email : admin@admin.com
+    - password : admin
 
-command run image
-
-- docker run -e MYSQL_USER=root -e MYSQL_PASSWORD= -e MYSQL_HOST=docker.for.mac.host.internal -e MYSQL_DBNAME="interviewtest" -p 3030:3030 pos
+- untuk url yang sudah di deploy ada  di https://pos-golang.herokuapp.com/

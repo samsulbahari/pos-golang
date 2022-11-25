@@ -1,0 +1,1107 @@
+{
+	"info": {
+		"_postman_id": "f0c50ed3-b416-4da6-a129-d363f8827f9a",
+		"name": "POS",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "24230696"
+	},
+	"item": [
+		{
+			"name": "auth",
+			"item": [
+				{
+					"name": "login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\" : \"admin@admin.com\",\r\n    \"password\" : \"asad\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}auth/login",
+							"host": [
+								"{{base_url}}auth"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "login success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\" : \"admin@admin.com\",\r\n    \"password\" : \"admin\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/auth/login",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"auth",
+										"login"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 14 Nov 2022 06:04:51 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "171"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Success Login\",\n    \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2Njg0OTIyOTEsInJvbGUiOjEsInVzZXJfaWQiOjF9.hDkP3GjTXFSAWZGSHw2BSqyTh1dTrBdvU2eD7gXXXsg\"\n}"
+						},
+						{
+							"name": "response validation error",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\" : \"\",\r\n    \"password\" : \"admin\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/auth/login",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"auth",
+										"login"
+									]
+								}
+							},
+							"status": "Unprocessable Entity",
+							"code": 422,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 14 Nov 2022 06:08:35 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "58"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": [\n        \"error on field Email , condition  required\"\n    ]\n}"
+						},
+						{
+							"name": "login wrong email pass",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\" : \"admin@admin.com\",\r\n    \"password\" : \"asad\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/auth/login",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"auth",
+										"login"
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 14 Nov 2022 06:09:51 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "38"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Failed Email or password\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "menu",
+			"item": [
+				{
+					"name": "get menu",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}menu",
+							"host": [
+								"{{base_url}}menu"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "response success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/menu",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"menu"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 14 Nov 2022 06:14:20 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "287"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": [\n        {\n            \"ID\": 1,\n            \"Name\": \"Dashboard\",\n            \"Submenu\": null\n        },\n        {\n            \"ID\": 2,\n            \"Name\": \"Master\",\n            \"Submenu\": [\n                {\n                    \"Name\": \"Kategori\"\n                },\n                {\n                    \"Name\": \"Satuan\"\n                },\n                {\n                    \"Name\": \"Meja\"\n                },\n                {\n                    \"Name\": \"Produk\"\n                }\n            ]\n        },\n        {\n            \"ID\": 3,\n            \"Name\": \"Relasi\",\n            \"Submenu\": null\n        },\n        {\n            \"ID\": 4,\n            \"Name\": \"Transaksi\",\n            \"Submenu\": null\n        },\n        {\n            \"ID\": 5,\n            \"Name\": \"Pengguna\",\n            \"Submenu\": null\n        }\n    ]\n}"
+						},
+						{
+							"name": "response invalid token",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/menu",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"menu"
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 14 Nov 2022 06:16:17 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "27"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Invalid token\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "category",
+			"item": [
+				{
+					"name": "get category",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}category?page=1",
+							"host": [
+								"{{base_url}}category"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "reponse data null",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url_local}}category?page=1",
+									"host": [
+										"{{base_url_local}}category"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 14 Nov 2022 06:18:51 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "56"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"Total\": 0,\n    \"PerPage\": 10,\n    \"Page\": 1,\n    \"LastPage\": 1,\n    \"Data\": []\n}"
+						},
+						{
+							"name": "response data",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url_local}}category?page=1",
+									"host": [
+										"{{base_url_local}}category"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 14 Nov 2022 06:24:09 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "177"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"Total\": 1,\n    \"PerPage\": 10,\n    \"Page\": 1,\n    \"LastPage\": 1,\n    \"Data\": [\n        {\n            \"ID\": 2,\n            \"Name\": \"minuman\",\n            \"Image\": \"\",\n            \"Status\": false,\n            \"CreatedAt\": \"2022-11-14T00:00:00Z\",\n            \"UpdatedAt\": \"2022-11-14T00:00:00Z\"\n        }\n    ]\n}"
+						},
+						{
+							"name": "response invalid token",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url_local}}category?page=1",
+									"host": [
+										"{{base_url_local}}category"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 14 Nov 2022 06:25:04 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "27"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Invalid token\"\n}"
+						}
+					]
+				},
+				{
+					"name": "create category",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/C:/Users/Syamsul Bahari/Documents/flow.png"
+								},
+								{
+									"key": "name",
+									"value": "a",
+									"type": "text"
+								},
+								{
+									"key": "status",
+									"value": "true",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}category",
+							"host": [
+								"{{base_url}}category"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "response success create",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "image",
+											"type": "file",
+											"src": "/C:/Users/Syamsul Bahari/Documents/sinta/CIMB NIAGA 25 APRIL 2022.jpg"
+										},
+										{
+											"key": "name",
+											"value": "a",
+											"type": "text"
+										},
+										{
+											"key": "status",
+											"value": "true",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "localhost:8080/category",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"category"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 16 Nov 2022 12:31:01 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "33"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Success create data\"\n}"
+						},
+						{
+							"name": "response validation",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "image",
+											"type": "file",
+											"src": "/C:/Users/Syamsul Bahari/Documents/sinta/CIMB NIAGA 25 APRIL 2022.jpg",
+											"disabled": true
+										},
+										{
+											"key": "name",
+											"value": "a",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "status",
+											"value": "true",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "localhost:8080/category",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"category"
+									]
+								}
+							},
+							"status": "Unprocessable Entity",
+							"code": 422,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 16 Nov 2022 12:32:03 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "57"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": [\n        \"error on field Name , condition  required\"\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "delete category",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/C:/Users/Syamsul Bahari/Documents/sinta/BCA P 25 APRIL 2022 PART 2.jpg"
+								},
+								{
+									"key": "name",
+									"value": "a",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:8080/category?id=a",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"category"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "a"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "reponse if id not integer",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "image",
+											"type": "file",
+											"src": "/C:/Users/Syamsul Bahari/Documents/sinta/BCA P 25 APRIL 2022 PART 2.jpg"
+										},
+										{
+											"key": "name",
+											"value": "a",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "localhost:8080/category?id=a",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"category"
+									],
+									"query": [
+										{
+											"key": "id",
+											"value": "a"
+										}
+									]
+								}
+							},
+							"status": "Unprocessable Entity",
+							"code": 422,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 16 Nov 2022 13:19:20 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "30"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Invalid input ID\"\n}"
+						},
+						{
+							"name": "reponse success",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "image",
+											"type": "file",
+											"src": "/C:/Users/Syamsul Bahari/Documents/sinta/BCA P 25 APRIL 2022 PART 2.jpg"
+										},
+										{
+											"key": "name",
+											"value": "a",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "localhost:8080/category?id=5",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"category"
+									],
+									"query": [
+										{
+											"key": "id",
+											"value": "5"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 16 Nov 2022 13:46:22 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "33"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Success delete data\"\n}"
+						}
+					]
+				},
+				{
+					"name": "update category",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/C:/Users/Syamsul Bahari/Documents/classdiagram.png"
+								},
+								{
+									"key": "name",
+									"value": "id 4 update",
+									"type": "text"
+								},
+								{
+									"key": "status",
+									"value": "true",
+									"type": "text"
+								},
+								{
+									"key": "ID",
+									"value": "4",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}category?id=a",
+							"host": [
+								"{{base_url}}category"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "a"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "reponse if id not integer",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "image",
+											"type": "file",
+											"src": "/C:/Users/Syamsul Bahari/Documents/sinta/BCA P 25 APRIL 2022 PART 2.jpg"
+										},
+										{
+											"key": "name",
+											"value": "a",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "localhost:8080/category?id=a",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"category"
+									],
+									"query": [
+										{
+											"key": "id",
+											"value": "a"
+										}
+									]
+								}
+							},
+							"status": "Unprocessable Entity",
+							"code": 422,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 16 Nov 2022 13:19:20 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "30"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Invalid input ID\"\n}"
+						},
+						{
+							"name": "reponse success",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "image",
+											"type": "file",
+											"src": "/C:/Users/Syamsul Bahari/Documents/sinta/BCA P 25 APRIL 2022 PART 2.jpg"
+										},
+										{
+											"key": "name",
+											"value": "a",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "localhost:8080/category?id=5",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"category"
+									],
+									"query": [
+										{
+											"key": "id",
+											"value": "5"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 16 Nov 2022 13:46:22 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "33"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Success delete data\"\n}"
+						}
+					]
+				},
+				{
+					"name": "update category image",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "image",
+									"type": "file",
+									"src": []
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}category?id=11",
+							"host": [
+								"{{base_url}}category"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "11"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "reponse if id not integer",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "image",
+											"type": "file",
+											"src": "/C:/Users/Syamsul Bahari/Documents/sinta/BCA P 25 APRIL 2022 PART 2.jpg"
+										},
+										{
+											"key": "name",
+											"value": "a",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "localhost:8080/category?id=a",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"category"
+									],
+									"query": [
+										{
+											"key": "id",
+											"value": "a"
+										}
+									]
+								}
+							},
+							"status": "Unprocessable Entity",
+							"code": 422,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 16 Nov 2022 13:19:20 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "30"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Invalid input ID\"\n}"
+						},
+						{
+							"name": "reponse success",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "image",
+											"type": "file",
+											"src": "/C:/Users/Syamsul Bahari/Documents/sinta/BCA P 25 APRIL 2022 PART 2.jpg"
+										},
+										{
+											"key": "name",
+											"value": "a",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "localhost:8080/category?id=5",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"category"
+									],
+									"query": [
+										{
+											"key": "id",
+											"value": "5"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 16 Nov 2022 13:46:22 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "33"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Success delete data\"\n}"
+						}
+					]
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "token",
+			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NjkzOTE3NjcsInJvbGUiOjEsInVzZXJfaWQiOjF9.k6NX_VlYNbihgS1N9_frIZaROeRQAvHqp_h4FTfeDOg",
+			"type": "string"
+		}
+	]
+}
