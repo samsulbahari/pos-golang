@@ -8,3 +8,5 @@ Panduan install
     - password : admin
 
 - untuk url yang sudah di deploy ada  di https://pos-golang.herokuapp.com/
+
+- untuk patren yang di gunakan yaitu clean arsitecture patren dikarenakan setiap komponen bersifat independen 
